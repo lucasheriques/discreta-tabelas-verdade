@@ -5,24 +5,26 @@
     <meta http-equiv="X-UA-COMPATIBLE" content="IE=EDGE">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Truth Table Generator</title>
+	<title>Construtor de Tabelas Verdade</title>
 </head>
 <body>
 <main id="main">
     <!-- Input -->
     <div class="align-center container">
-        <h1>Calculadora de Tabelas Verdade</h1>
+        <h1>Construtor de Tabelas Verdade</h1>
         <p>Entre a expressão com o seguinte formato:<br>
-            E = <span class="example">AB</span>&emsp;
-            OU = <span class="example">A+B</span>&emsp;
-            NÃO = <span class="example">A'</span><br>
+            E = <span class="example">A & B</span> ou <span class="example">AB</span>&emsp;
+            OU = <span class="example">A | B</span>&emsp;
+            NÃO = <span class="example">!A</span><br>
+            NÃO E = <span class="example">!(A & B)</span>
+            NÃO OU = <span class="example">!(A | B)</span><br>
+            SE...ENTÃO = <span class="example">!A | B</span><br>
+            OU...OU = <span class="example">(!A & B) | (A & !B)</span><br>
             SE E SOMENTE SE = <span class="example">A == B</span><br>
-            OU...OU = <span class="example">(A'B)+(AB')</span><br>
-            NÃO E = <span class="example">(AB)'</span>
-            NÃO OU = <span class="example">(A+B)'</span></p>
-        <input autofocus id="expression" oninput="build()" placeholder="Exemplo: (AB)'C+D" type="text">
+        </p>
+        <input autofocus id="expression" oninput="build()" placeholder="Exemplo: (A & B) & (!A | B)" type="text">
         <noscript>
             <p>Esse app precisa de JavaScript para funcionar corretamente. Habilite-o e então recarregue a página.</p>
         </noscript>
