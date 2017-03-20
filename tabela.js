@@ -27,8 +27,8 @@ function build() {
         }
     }
     variables.sort();
-    if (variables.length > 8) {
-        placeholder.innerHTML = "<p>O número máximo de variáveis é 8.</p>";
+    if (variables.length > 15) {
+        placeholder.innerHTML = "<p>O número máximo de variáveis é 15.</p>";
         return;
     }
     let string = "";
@@ -48,7 +48,6 @@ function build() {
         string += "<tr>";
         let data = [];
         for (j = 0; j < variables.length; j++) {
-            console.log(Math.floor(i / Math.pow(2, variables.length - j - 1)));
             data[j] = Math.floor(i / Math.pow(2, variables.length - j - 1)) % 2;
             if (data[j] == 0)
                 string += "<td>F</td>";
@@ -56,9 +55,13 @@ function build() {
                 string += "<td>V</td>";
         }
         let equation = text;
+        // Troca as variáveis (A, B, etc) por valores lógicos (0 ou 1) que estão em data[j]
         for (j = 0; j < variables.length; j++) {
+            console.log(new RegExp(variables[j], 'g'));
             equation = equation.replace(new RegExp(variables[j], 'g'), data[j]);
         }
+
+        // Finalmente, chama a função pra resolver a equação
         string += "<td>" + solve(equation) + "</td></tr>";
     }
     string = "<table align='center' id>" + string + "</table>";
