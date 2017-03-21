@@ -6,7 +6,7 @@ function build() {
         placeholder.innerHTML = "<div></div>";
         return;
     }
-    if (text.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01=!&|() ]/g) != null) {
+    if (text.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01=!&|→∨∧⊻() ]/g) != null) {
         placeholder.innerHTML = "<p>Caractere inválido inserido.</p>";
         return;
     }
@@ -57,7 +57,6 @@ function build() {
         let equation = text;
         // Troca as variáveis (A, B, etc) por valores lógicos (0 ou 1) que estão em data[j]
         for (j = 0; j < variables.length; j++) {
-            console.log(new RegExp(variables[j], 'g'));
             equation = equation.replace(new RegExp(variables[j], 'g'), data[j]);
         }
 
@@ -103,21 +102,51 @@ function build() {
 
         // Caso a equação das variáveis sejam AB (seguidas), adiciona um & entre elas
         // para fazer a avaliação da expressão
-        for (let i = 0; i < equation.length - 1; i++)
+        for (let i = 0; i < equation.length - 1; i++) {
             if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '0' || equation[i + 1] == '1'))
                 equation = equation.substring(0, i + 1) + '&' + equation.substring(i + 1, equation.length);
+
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '∨') && (equation[i + 2] == '0' || equation[i + 2] == '1'))
+                equation = equation.substring(0, i + 1) + '|' + equation.substring(i + 2, equation.length);
+
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '∧') && (equation[i + 2] == '0' || equation[i + 2] == '1'))
+                equation = equation.substring(0, i + 1) + '&' + equation.substring(i + 2, equation.length);
+
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '→') && (equation[i + 2] == '0' || equation[i + 2] == '1')) {
+                if (equation[i] == '0') {
+                    equation = equation.substring(0, i) + '!0|' + equation.substring(i + 2, equation.length);
+                }
+                else {
+                    equation = equation.substring(0, i) + '!1|' + equation.substring(i + 2, equation.length);
+                }
+            }
+
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '⊻') && (equation[i + 2] == '0' || equation[i + 2] == '1')) {
+                let temp;
+                temp = "(!" + equation[i] + "&" + equation[i + 2] + ") | (" + equation[i] + "&!" + equation[i + 2] + ")";
+                console.log(temp);
+                equation = equation.substring(0, i) + temp + equation.substring(i + 3, equation.length);
+            }
+
+        }
+
 
         // Calcula o valor da expressão passada, utilizando o eval
         try {
             let safeEval = eval;
             let answer = safeEval(equation);
             if (answer == 0)
-                return 0;
+                return "0";
             if (answer > 0)
-                return 1;
+                return "1";
             return '';
         } catch (e) {
             return '';
         }
     }
+
+    let table = document.getElementById("table-placeholder");
+
+    table.innerHTML = table.innerHTML.replace(/0/g, 'F');
+    table.innerHTML = table.innerHTML.replace(/1/g, 'V');
 }

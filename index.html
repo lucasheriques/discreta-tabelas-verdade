@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
-	<title>Construtor de Tabelas Verdade</title>
+    <title>Construtor de Tabelas Verdade</title>
 </head>
 <body>
 <main id="main">
@@ -15,13 +15,13 @@
     <div class="align-center container">
         <h1>Construtor de Tabelas Verdade</h1>
         <p>Entre a expressão com o seguinte formato:<br>
-            E = <span class="example">A & B</span> ou <span class="example">AB</span>&emsp;
-            OU = <span class="example">A | B</span>&emsp;
+            E = <span class="example">A ∧ B</span>&emsp;
+            OU = <span class="example">A ∨ B</span>&emsp;
             NÃO = <span class="example">!A</span><br>
             NÃO E = <span class="example">!(A & B)</span>
             NÃO OU = <span class="example">!(A | B)</span><br>
-            SE...ENTÃO = <span class="example">!A | B</span><br>
-            OU...OU = <span class="example">(!A & B) | (A & !B)</span><br>
+            SE...ENTÃO = <span class="example">A → B</span><br>
+            OU...OU = <span class="example">A ⊻ B</span><br>
             SE E SOMENTE SE = <span class="example">A == B</span><br>
         </p>
         <input autofocus id="expression" oninput="build()" placeholder="Exemplo: (A & B) & (!A | B)" type="text">
