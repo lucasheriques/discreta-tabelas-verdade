@@ -6,7 +6,7 @@ function build() {
         placeholder.innerHTML = "<div></div>";
         return;
     }
-    if (text.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01=!&|→∨∧⊻() ]/g) != null) {
+    if (text.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01=!&|>∨∧@() ]/g) != null) {
         placeholder.innerHTML = "<p>Caractere inválido inserido.</p>";
         return;
     }
@@ -20,7 +20,7 @@ function build() {
 
     // Constrói o array de variáveis
     for (i = 0; i < text.length; i++) {
-        if ((text[i] >= 'A' && text[i] <= 'Z')) {
+        if ((text[i] >= 'A' && text[i] <= 'Z' && text[i] != 'V')) {
             if (text.indexOf(text[i]) == i) {
                 variables.push(text[i]);
             }
@@ -106,13 +106,13 @@ function build() {
             if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '0' || equation[i + 1] == '1'))
                 equation = equation.substring(0, i + 1) + '&' + equation.substring(i + 1, equation.length);
 
-            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '∨') && (equation[i + 2] == '0' || equation[i + 2] == '1'))
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '|') && (equation[i + 2] == '0' || equation[i + 2] == '1'))
                 equation = equation.substring(0, i + 1) + '|' + equation.substring(i + 2, equation.length);
 
-            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '∧') && (equation[i + 2] == '0' || equation[i + 2] == '1'))
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '&') && (equation[i + 2] == '0' || equation[i + 2] == '1'))
                 equation = equation.substring(0, i + 1) + '&' + equation.substring(i + 2, equation.length);
 
-            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '→') && (equation[i + 2] == '0' || equation[i + 2] == '1')) {
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '>') && (equation[i + 2] == '0' || equation[i + 2] == '1')) {
                 if (equation[i] == '0') {
                     equation = equation.substring(0, i) + '!0|' + equation.substring(i + 2, equation.length);
                 }
@@ -121,7 +121,7 @@ function build() {
                 }
             }
 
-            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '⊻') && (equation[i + 2] == '0' || equation[i + 2] == '1')) {
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '@') && (equation[i + 2] == '0' || equation[i + 2] == '1')) {
                 let temp;
                 temp = "(!" + equation[i] + "&" + equation[i + 2] + ") | (" + equation[i] + "&!" + equation[i + 2] + ")";
                 console.log(temp);
